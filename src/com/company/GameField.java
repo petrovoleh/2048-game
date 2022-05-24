@@ -1,8 +1,6 @@
 package com.company;
 
-import java.util.Arrays;
 import java.util.Random;
-
 
 public class GameField{
 
@@ -36,6 +34,16 @@ public class GameField{
             case 40 -> merge_field = flip(change_to_vertical(game_field));
         }
     }
+    boolean is_player_lost(){
+        int zeros=0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if(game_field[i][j] == 0)
+                    zeros++;
+            }
+        }
+        return zeros==0;
+    }
     void normalize_direction(int key_code){
         switch (key_code) {
             case 37 -> game_field = merge_field;
@@ -62,15 +70,14 @@ public class GameField{
         return temp_field;
     }
     private void remove_empty(){
-        for(int first_x =0; first_x<3; first_x++){
-            for(int y =0; y<4; y++){
+        for(int y =0; y<4; y++){
+            for(int first_x =0; first_x<3; first_x++){
                 if(merge_field[first_x][y]==0){
-                    for(int second_x =first_x+1; second_x<4; second_x++){
-                        if(merge_field[second_x][y]!=0){
-                            merge_field[first_x][y]=merge_field[second_x][y];
-                            merge_field[second_x][y]=0;
-                        }
-                    }
+                    int second_x =first_x+1;
+                    while (merge_field[second_x][y] ==0 && second_x < 3)
+                        second_x++;
+                    merge_field[first_x][y]=merge_field[second_x][y];
+                    merge_field[second_x][y]=0;
                 }
             }
         }
@@ -80,7 +87,10 @@ public class GameField{
         merge_parts(merge_field);
         remove_empty();
         normalize_direction(key_code);
-        generate_parts();
+        if (is_player_lost())
+            System.out.println("YOU LOSE");
+        else
+            generate_parts();
     }
 
     void generate_parts(){
