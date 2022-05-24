@@ -18,16 +18,8 @@ public class GameScreen extends ScreenSetting implements KeyListener
 
         addKeyListener(this);
         setFocusable(true);
-
-        field.print_game_field();
-
         repaint();
     }
-
-    private void refresh(){
-        field.generate_parts();
-    }
-
 
     public void refresh_screen(Graphics g){
         g.setFont(TimesRoman);
@@ -50,7 +42,6 @@ public class GameScreen extends ScreenSetting implements KeyListener
     @Override
     public void paint(Graphics g)
     {
-
         super.paint(g);
         g.setColor(new Color(187,173,160));
         g.fillRect(45,100,410,410);
@@ -59,21 +50,16 @@ public class GameScreen extends ScreenSetting implements KeyListener
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
     public void keyReleased(KeyEvent e) {
-        refresh();
+        field.move_parts(e.getKeyCode());
         repaint();
         setFocusable(true);
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
 }
