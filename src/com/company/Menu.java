@@ -4,12 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 //GUI (ALL BUTTONS WRITTEN HERE)
-public class Menu extends JFrame {
+public class Menu extends ScreenSetting {
     public Menu() {
-        setTitle("2048");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().setBackground(new Color(250,240,230));
-        setSize(500,600);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -17,7 +13,7 @@ public class Menu extends JFrame {
         l2048.setSize(250,70);
         l2048.setLocation(120, 40);
 
-        l2048.setFont(new Font("TimesRoman", Font.BOLD, 70));
+        l2048.setFont(TimesRoman);
         add(l2048);
 
 

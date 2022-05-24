@@ -1,43 +1,79 @@
 package com.company;
 
 
-import javax.swing.JFrame;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import java.awt.Graphics;
-import java.awt.Color;
-
-public class GameScreen extends JFrame
+public class GameScreen extends ScreenSetting implements KeyListener
 {
+    GameField field = new GameField();
+
     public GameScreen()
     {
-        setTitle("2048");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().setBackground(new Color(250,240,230));
-        setSize(500,600);
-        setVisible(false);
-
-
         add(new menuButton("Back to menu",500));
 
         setLayout(null);
         setResizable(false);
 
-        GameLogic.game_loop();
+        addKeyListener(this);
+        setFocusable(true);
+
+        field.print_game_field();
+
+        repaint();
     }
 
-    public void paint(Graphics g)
-    {
-        super.paint(g);
-        g.setColor(new Color(187,173,160));
+    private void refresh(){
+        field.generate_parts();
+    }
 
-        g.fillRect(45,100,410,410);
-        g.setColor(new Color(205,193,180));
+
+    public void refresh_screen(Graphics g){
+        g.setFont(TimesRoman);
 
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
+                if(field.game_field[i][j]== 0){
+                    g.setColor(new Color(205,193,180));
+                }
+                else{
+                    g.setColor(new Color(238,228,218));
+                }
                 g.fillRect(55+i*100,110+j*100,90,90);
+                g.setColor(Color.BLACK);
+                if (field.game_field[i][j] !=0)
+                    g.drawString(String.valueOf(field.game_field[i][j]), 85+i*100,150+j*100);
             }
         }
+    }
+    @Override
+    public void paint(Graphics g)
+    {
+
+        super.paint(g);
+        g.setColor(new Color(187,173,160));
+        g.fillRect(45,100,410,410);
+
+        refresh_screen(g);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        refresh();
+        repaint();
+        setFocusable(true);
     }
 
 }
