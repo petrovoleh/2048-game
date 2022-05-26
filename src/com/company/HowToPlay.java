@@ -22,6 +22,5 @@ public class HowToPlay extends ScreenSetting {
         add(new menuButton("Back to menu",500));
 
         setLayout(null);
-        setResizable(false);
     }
 }

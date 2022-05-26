@@ -14,6 +14,5 @@ public class Settings extends ScreenSetting {
         add(new menuButton("Back to menu",500));
 
         setLayout(null);
-        setResizable(false);
     }
 }

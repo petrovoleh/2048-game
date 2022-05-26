@@ -24,8 +24,5 @@ public class Menu extends ScreenSetting {
 
 
         setLayout(null);
-        setVisible(true);
-        setResizable(false);
-        setFocusable(true);
     }
 }

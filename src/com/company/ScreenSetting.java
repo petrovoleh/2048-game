@@ -12,5 +12,6 @@ public class ScreenSetting extends JFrame {
         getContentPane().setBackground(new Color(250,240,230));
         setSize(500,600);
         setVisible(false);
+        setResizable(false);
     }
 }
