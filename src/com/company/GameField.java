@@ -10,6 +10,9 @@ public class GameField{
     GameField() {
         generate_parts();
         generate_parts();
+        game_field[1][1] = 1024;
+        game_field[0][1] = 2048;
+        game_field[2][1] = 512;
     }
 
     void merge_parts(int[][] temp_field){
@@ -88,7 +91,7 @@ public class GameField{
         remove_empty();
         normalize_direction(key_code);
         if (is_player_lost())
-            System.out.println("YOU LOSE");
+            System.out.println("YOU LOST");
         else
             generate_parts();
     }
