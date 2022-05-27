@@ -6,51 +6,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-class FieldBackground extends JPanel {
-    FieldBackground() {
-        setLocation(0, 0);
-        setSize(500, 600);
-        setBackground(new Color(250, 240, 230));
-    }
-
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(new Color(163, 146, 128));
-        g.fillRect(37, 69, 410, 410);
-
-        g.setColor(new Color(190, 175, 160));
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                g.fillRoundRect(47 + i * 100, 79 + j * 100, 90, 90, 5, 5);
-
-            }
-        }
-    }
-}
-
-class FieldForeground extends JPanel {
-    FieldForeground() {
-        setLocation(0, 0);
-        setSize(500, 600);
-        setBackground(new Color(250, 240, 230));
-    }
-
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(new Color(163, 146, 128));
-        g.fillRect(37, 69, 410, 410);
-
-        g.setColor(new Color(190, 175, 160));
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                g.fillRoundRect(47 + i * 100, 79 + j * 100, 90, 90, 5, 5);
-
-            }
-        }
-    }
-}
-public class GameScreen extends ScreenSetting implements KeyListener
-{
+class GraphicField extends JPanel {
     Color color0   = new Color(190,175,160);
     Color color2   = new Color(238,228,218);
     Color color4   = new Color(230,210,190);
@@ -64,65 +20,38 @@ public class GameScreen extends ScreenSetting implements KeyListener
     Color color1024 = new Color(240, 205, 80);
     Color color2048 = new Color(240, 205, 50);
     Color color4096 = new Color(100, 100, 220);
+    Font PartsFont = new Font("Bahnschrift", Font.BOLD, 35);
 
-    GameField field = new GameField();
-
-    public GameScreen()
-    {
-        add(new menuButton("Back to menu",500));
-
-        setLayout(null);
-        add(new FieldBackground());
-
-        addKeyListener(this);
-        setFocusable(true);
-        repaint();
+    GameField field;
+    GraphicField(GameField f) {
+        field = f;
+        setLocation(50, 70);
+        setSize(410, 410);
+        setBackground(new Color(0, 0, 0, 0));
     }
 
     private Color set_color(int value){
+        Color returned_color;
         switch (value){
-            case 2 -> {
-                return color2;
-            }
-            case 4 -> {
-                return color4;
-            }
-            case 8 -> {
-                return color8;
-            }
-            case 16 -> {
-                return color16;
-            }
-            case 32 -> {
-                return color32;
-            }
-            case 64 -> {
-                return color64;
-            }
-            case 128 -> {
-                return color128;
-            }
-            case 256 -> {
-                return color256;
-            }
-            case 512 -> {
-                return color512;
-            }
-            case 1024 -> {
-                return color1024;
-            }
-            case 2048 -> {
-                return color2048;
-            }
-            case 4096 -> {
-                return color4096;
-            }
-            default -> {
-                return color0;
-            }
+            case 0 -> returned_color=color0;
+            case 2 -> returned_color=color2;
+            case 4 -> returned_color=color4;
+            case 8 -> returned_color=color8;
+            case 16 -> returned_color=color16;
+            case 32 -> returned_color=color32;
+            case 64 -> returned_color=color64;
+            case 128 -> returned_color=color128;
+            case 256 -> returned_color=color256;
+            case 512 -> returned_color=color512;
+            case 1024 -> returned_color=color1024;
+            case 2048 -> returned_color=color2048;
+            case 4096 -> returned_color=color4096;
+            default -> returned_color=color2048;
         }
+        return returned_color;
     }
-    public void refresh_screen(Graphics g){
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.setFont(PartsFont);
         FontMetrics fontMetrics = g.getFontMetrics();
         Graphics2D g2 = (Graphics2D)g;
@@ -130,32 +59,53 @@ public class GameScreen extends ScreenSetting implements KeyListener
                 RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
+
+        g.setColor(new Color(163, 146, 128));
+        g.fillRect(0, 0, 410, 410);
+
+
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
-                if (field.game_field[i][j] !=0) {
-                    String s = String.valueOf(field.game_field[i][j]);
-                    g.setColor(set_color(field.game_field[i][j]));
-                    g.fillRoundRect(55 + i * 100, 110 + j * 100, 90, 90, 5, 5);
-                    g.setColor(Color.BLACK);
-                    g.drawString(s, 100 + i * 100 - fontMetrics.stringWidth(s) / 2, 168 + j * 100);
+ 
+                String s = String.valueOf(field.game_field[i][j]);
+                g.setColor(set_color(field.game_field[i][j]));
+                g.fillRoundRect(10+i * 100, 10+j * 100, 90, 90, 5, 5);
 
+                if (field.game_field[i][j] !=0) {
+                    g.setColor(Color.BLACK);
+                    g.drawString(s, 55 + i * 100 - fontMetrics.stringWidth(s) / 2, 68 + j * 100);
                 }
+
             }
         }
+
     }
-    @Override
-    public void paint(Graphics g)
+}
+public class GameScreen extends ScreenSetting implements KeyListener
+{
+
+    GameField field = new GameField();
+    GraphicField graphic = new GraphicField(field);
+
+    public GameScreen()
     {
-        super.paint(g);
-        refresh_screen(g);
+        add(new menuButton("Back to menu",500));
+
+        setLayout(null);
+        add(graphic);
+        addKeyListener(this);
+        setFocusable(true);
+        graphic.repaint();
+        repaint();
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key>=37 && key <=40) {
             field.move_parts(key);
-            repaint();
+            graphic.repaint();
             setFocusable(true);
         }
     }
