@@ -7,20 +7,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 class GraphicField extends JPanel {
-    Color color0   = new Color(190,175,160);
+    Color color0   = new Color(205,193,180);
     Color color2   = new Color(238,228,218);
     Color color4   = new Color(230,210,190);
     Color color8   = new Color(240, 178, 124);
-    Color color16  = new Color(240, 151, 107);
-    Color color32  = new Color(240,126,104);
-    Color color64  = new Color(240, 96, 58);
-    Color color128 = new Color(240, 240, 180);
-    Color color256 = new Color(240, 225, 150);
-    Color color512 = new Color(240, 205, 120);
-    Color color1024 = new Color(240, 205, 80);
-    Color color2048 = new Color(240, 205, 50);
+    Color color16  = new Color(246, 150, 100);
+    Color color32  = new Color(247,124,95);
+    Color color64  = new Color(247, 95, 59);
+    Color color128 = new Color(237, 208, 115);
+    Color color256 = new Color(237, 208, 98);
+    Color color512 = new Color(237, 208, 80);
+    Color color1024 = new Color(237, 208, 50);
+    Color color2048 = new Color(237, 208, 20);
     Color color4096 = new Color(100, 100, 220);
-    Font PartsFont = new Font("Bahnschrift", Font.BOLD, 35);
+    Font PartsFont = new Font("SansSerif", Font.BOLD, 35);
 
     GameField field;
     GraphicField(GameField f) {
@@ -60,19 +60,22 @@ class GraphicField extends JPanel {
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 
-        g.setColor(new Color(163, 146, 128));
+        g.setColor(new Color(187, 173, 160));
         g.fillRect(0, 0, 410, 410);
 
 
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
- 
+
                 String s = String.valueOf(field.game_field[i][j]);
                 g.setColor(set_color(field.game_field[i][j]));
                 g.fillRoundRect(10+i * 100, 10+j * 100, 90, 90, 5, 5);
 
                 if (field.game_field[i][j] !=0) {
-                    g.setColor(Color.BLACK);
+                    if(field.game_field[i][j] < 8)
+                        g.setColor(new Color(120, 110, 100));
+                    else
+                        g.setColor(Color.WHITE);
                     g.drawString(s, 55 + i * 100 - fontMetrics.stringWidth(s) / 2, 68 + j * 100);
                 }
 
@@ -96,7 +99,6 @@ public class GameScreen extends ScreenSetting implements KeyListener
         addKeyListener(this);
         setFocusable(true);
         graphic.repaint();
-        repaint();
     }
 
 

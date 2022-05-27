@@ -7,8 +7,6 @@ import java.awt.*;
 public class Menu extends ScreenSetting {
     public Menu() {
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
         JLabel l2048 = new JLabel("2048", SwingConstants.CENTER);
         l2048.setSize(250,70);
         l2048.setLocation(120, 40);

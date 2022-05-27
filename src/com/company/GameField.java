@@ -12,7 +12,7 @@ public class GameField{
         generate_parts();
     }
 
-    void merge_parts(int[][] temp_field){
+    private void merge_parts(int[][] temp_field){
         for (int y = 0; y<4; y++) {
             for (int first = 0; first < 3; first++) {
                 int second = first+1;
@@ -26,49 +26,53 @@ public class GameField{
         }
     }
 
-    void change_direction(int key_code){
+    private void change_direction(int key_code){
         switch (key_code) {
             case 37 -> merge_field = game_field;
-            case 38 -> merge_field = change_to_vertical(game_field);
+            case 38 -> merge_field = rotate_field(game_field);
             case 39 -> merge_field = flip(game_field);
-            case 40 -> merge_field = flip(change_to_vertical(game_field));
-        }
-    }
-    boolean is_player_lost(){
-        int zeros=0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if(game_field[i][j] == 0)
-                    zeros++;
-            }
-        }
-        return zeros==0;
-    }
-    void normalize_direction(int key_code){
-        switch (key_code) {
-            case 37 -> game_field = merge_field;
-            case 38 -> game_field = change_to_vertical(merge_field);
-            case 39 -> game_field = flip(merge_field);
-            case 40 -> game_field = change_to_vertical(flip(merge_field));
+            case 40 -> merge_field = flip(rotate_field(game_field));
         }
     }
 
-    int[][] flip(int[][] array) {
+    private boolean is_player_lost(){
+        for (int x = 0; x < 4; x++)
+            for (int y = 1; y < 3; y++)
+                if(game_field[x][y] == game_field[x][y+1] ||game_field[x][y] == game_field[x][y-1])
+                    return false;
+
+        for (int x = 1; x < 3; x++)
+            for (int y = 0; y < 4; y++)
+                if(game_field[x][y] == game_field[x+1][y] ||game_field[x][y] == game_field[x-1][y])
+                    return false;
+
+        return true;
+    }
+
+    private void normalize_direction(int key_code){
+        switch (key_code) {
+            case 37 -> game_field = merge_field;
+            case 38 -> game_field = rotate_field(merge_field);
+            case 39 -> game_field = flip(merge_field);
+            case 40 -> game_field = rotate_field(flip(merge_field));
+        }
+    }
+
+    private int[][] flip(int[][] array) {
         int[][] temp_field= new int [4][4];
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++)
             System.arraycopy(array[3 - i], 0, temp_field[i], 0, 4);
-        }
         return temp_field;
     }
-    int[][] change_to_vertical(int[][] array) {
+    
+    private int[][] rotate_field(int[][] array) {
         int[][] temp_field= new int [4][4];
-        for (int i = 0; i < 4; i++) {
-            for(int j = 0; j < 4; j++){
+        for (int i = 0; i < 4; i++)
+            for(int j = 0; j < 4; j++)
                 temp_field[i][j]=array[j][i];
-            }
-        }
         return temp_field;
     }
+    
     private void remove_empty(){
         for(int y =0; y<4; y++){
             for(int first_x =0; first_x<3; first_x++){
@@ -82,18 +86,28 @@ public class GameField{
             }
         }
     }
+    
+    private boolean there_are_empty(){
+        for (int x = 0; x < 4; x++)
+            for (int y = 0; y < 4; y++)
+                if(game_field[x][y] == 0)
+                    return true;
+        return false;
+    }
+    
     public void move_parts(int key_code){
         change_direction(key_code);
         merge_parts(merge_field);
         remove_empty();
         normalize_direction(key_code);
-        if (is_player_lost())
-            System.out.println("YOU LOST");
-        else
+
+        if (there_are_empty())
             generate_parts();
+        else if(is_player_lost())
+            System.out.println("YOU LOST");
     }
 
-    void generate_parts(){
+    private void generate_parts(){
         Random rand = new Random();
         int rand_x = rand.nextInt(4);
         int rand_y = rand.nextInt(4);
@@ -107,7 +121,6 @@ public class GameField{
             game_field[rand_x][rand_y] = 4;
         else
             game_field[rand_x][rand_y] = 2;
-
     }
 }
 
