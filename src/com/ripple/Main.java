@@ -1,4 +1,4 @@
-package com.company;
+package com.ripple;
 
 import javax.swing.*;
 

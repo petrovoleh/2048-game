@@ -1,7 +1,6 @@
-package com.company;
+package com.ripple;
 
 import javax.swing.*;
-import java.awt.*;
 
 //GUI (ALL BUTTONS WRITTEN HERE)
 public class Menu extends ScreenSetting {

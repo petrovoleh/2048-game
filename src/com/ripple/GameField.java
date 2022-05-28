@@ -1,15 +1,52 @@
-package com.company;
+package com.ripple;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameField{
 
     public int[][] game_field = new int[4][4];
     private int[][] merge_field = new int[4][4];
+    public int score = 0;
+    public int best = 0;
 
     GameField() {
         generate_parts();
         generate_parts();
+        download_best();
+        game_field[0][1]=2048;
+        game_field[1][1]=2048;
+        game_field[2][1]=2048;
+        game_field[3][1]=2048;
+
+    }
+
+    private void download_best(){
+        try {
+            Scanner scanner = new Scanner(new File("src/com/ripple/game_files/best_score.txt"));
+            if(scanner.hasNextInt())
+                best=scanner.nextInt();
+        } catch (FileNotFoundException e) {
+            try {
+                if(new File("src/com/ripple/game_files/best_score.txt").createNewFile())
+                    System.out.println("created new best_score file");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    public void save_best(){
+        try {
+            FileWriter writer = new FileWriter("src/com/ripple/game_files/best_score.txt", false);
+            writer.write(String.valueOf(best));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void merge_parts(int[][] temp_field){
@@ -21,6 +58,9 @@ public class GameField{
                 if (temp_field[first][y] == temp_field[second][y]){
                     temp_field[first][y]*=2;
                     temp_field[second][y]=0;
+                    score+=temp_field[first][y];
+                    if (best<score)
+                        best=score;
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.company;
+package com.ripple;
 
 public class GameListener {
 }
