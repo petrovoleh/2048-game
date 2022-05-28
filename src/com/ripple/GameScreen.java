@@ -5,18 +5,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
 
 class ShowScore extends JPanel{
     Color color0   = new Color(187, 173, 160);
     Color color1   = new Color(238,228,218);
+    Color color3   = new Color(119,110,101);
     Font ClearSans;
     GameField field;
     ShowScore(GameField f,Font font) {
         field = f;
         ClearSans = font;
-        setLocation(100, 0);
+        setLocation(40, 0);
         setSize(410, 100);
         setBackground(new Color(250,240,230));
         repaint();
@@ -26,6 +25,10 @@ class ShowScore extends JPanel{
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        g.setFont(ClearSans.deriveFont(86f));
+        g.setColor(color3);
+        g.drawString("2048", 0, 80);
+
         g.setColor(color0);
         g.setFont(ClearSans.deriveFont(22f));
         FontMetrics fontMetrics = g.getFontMetrics();
@@ -34,30 +37,30 @@ class ShowScore extends JPanel{
 
 
 
-        int score_width = 0;
+        int score_width;
         if (field.score < 10000)
             score_width = (fontMetrics.stringWidth(score)+1)/10*10/2;
         else
             score_width = (fontMetrics.stringWidth(score)-2)/10*10/2;
 
-        int best_width = 0;
-        if (field.score < 10000)
+        int best_width;
+        if (field.best < 10000)
             best_width = (fontMetrics.stringWidth(best)+1)/10*10/2;
         else
             best_width = (fontMetrics.stringWidth(best)-2)/10*10/2;
 
 
-        g.fillRoundRect(225-best_width-score_width, 20, 60+ best_width, 60, 10, 10);
-        g.fillRoundRect(290-score_width, 20, 60+ score_width, 60, 10, 10);
+        g.fillRoundRect(285-best_width-score_width, 20, 60+ score_width, 60, 10, 10);
+        g.fillRoundRect(350-best_width, 20, 60+ best_width, 60, 10, 10);
 
 
 
         g.setColor(Color.WHITE);
 
 
-        g.drawString(score, (255 - score_width- best_width/2) - fontMetrics.stringWidth(score) / 2, 70);
+        g.drawString(score, 315 - best_width - score_width/2 - fontMetrics.stringWidth(score) / 2, 70);
 
-        g.drawString(best, (320 - score_width/2) - fontMetrics.stringWidth(best) / 2, 70);
+        g.drawString(best, 380 - best_width/2 - fontMetrics.stringWidth(best) / 2, 70);
 
         g.setColor(color1);
         g.setFont(ClearSans.deriveFont(16f));
@@ -65,9 +68,9 @@ class ShowScore extends JPanel{
         fontMetrics = g.getFontMetrics();
         score = "SCORE";
         best = "BEST";
-        g.drawString(score, (255 - score_width- best_width/2) - fontMetrics.stringWidth(score) / 2, 45);
+        g.drawString(score, (315 - best_width- score_width/2) - fontMetrics.stringWidth(score) / 2, 45);
 
-        g.drawString(best, (320 - score_width/2) - fontMetrics.stringWidth(best) / 2, 45);
+        g.drawString(best, 380 - best_width/2 - fontMetrics.stringWidth(best) / 2, 45);
 
     }
 }
@@ -115,8 +118,7 @@ class GraphicField extends JPanel {
             case 512 -> returned_color=color512;
             case 1024 -> returned_color=color1024;
             case 2048 -> returned_color=color2048;
-            case 4096 -> returned_color=color4096;
-            default -> returned_color=color2048;
+            default -> returned_color=color4096;
         }
         return returned_color;
     }
@@ -161,7 +163,6 @@ class GraphicField extends JPanel {
 }
 public class GameScreen extends ScreenSetting implements KeyListener
 {
-    Font ClearSans;
     GameField field = new GameField();
     JPanel graphic;
     JPanel show_score;
@@ -170,8 +171,6 @@ public class GameScreen extends ScreenSetting implements KeyListener
     {
         add(new menuButton("Back to menu",600));
 
-
-        download_font();
         setLayout(null);
 
         graphic = new GraphicField(field, ClearSans);
@@ -182,25 +181,16 @@ public class GameScreen extends ScreenSetting implements KeyListener
         setFocusable(true);
 
     }
-    private void download_font(){
-        try {
-            ClearSans = Font.createFont(Font.TRUETYPE_FONT, new File("src/com/ripple/game_files/ClearSans-Bold.ttf")).deriveFont(32f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(ClearSans);
-        } catch (IOException |FontFormatException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key>=37 && key <=40) {
+        System.out.println(key);
+        if (key>=37 && key <=40 ||(key == 65 || key == 87 || key==68 || key==83)) {
             field.move_parts(key);
             graphic.repaint();
             show_score.repaint();
             field.save_best();
-            setFocusable(true);
         }
     }
 

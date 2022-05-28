@@ -10,7 +10,10 @@ public class MenuListener implements ActionListener {
         Main.menu.setVisible(false);
         switch (e.getActionCommand()) {
 
-            case "Play" -> Main.game.setVisible(true);
+            case "Play" -> {
+                Main.game.setVisible(true);
+                Main.game.requestFocusInWindow();
+            }
             case "How to play" -> Main.how_to_play.setVisible(true);
             case "Settings" -> Main.settings.setVisible(true);
             case "Exit" -> System.exit(0);

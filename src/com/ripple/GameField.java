@@ -18,11 +18,6 @@ public class GameField{
         generate_parts();
         generate_parts();
         download_best();
-        game_field[0][1]=2048;
-        game_field[1][1]=2048;
-        game_field[2][1]=2048;
-        game_field[3][1]=2048;
-
     }
 
     private void download_best(){
@@ -68,10 +63,10 @@ public class GameField{
 
     private void change_direction(int key_code){
         switch (key_code) {
-            case 37 -> merge_field = game_field;
-            case 38 -> merge_field = rotate_field(game_field);
-            case 39 -> merge_field = flip(game_field);
-            case 40 -> merge_field = flip(rotate_field(game_field));
+            case 37, 65 -> merge_field = game_field;
+            case 38, 87 -> merge_field = rotate_field(game_field);
+            case 39, 68 -> merge_field = flip(game_field);
+            case 40, 83 -> merge_field = flip(rotate_field(game_field));
         }
     }
 
@@ -91,10 +86,10 @@ public class GameField{
 
     private void normalize_direction(int key_code){
         switch (key_code) {
-            case 37 -> game_field = merge_field;
-            case 38 -> game_field = rotate_field(merge_field);
-            case 39 -> game_field = flip(merge_field);
-            case 40 -> game_field = rotate_field(flip(merge_field));
+            case 37, 65 -> game_field = merge_field;
+            case 38, 87 -> game_field = rotate_field(merge_field);
+            case 39, 68 -> game_field = flip(merge_field);
+            case 40, 83 -> game_field = rotate_field(flip(merge_field));
         }
     }
 
