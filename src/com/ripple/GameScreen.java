@@ -6,6 +6,42 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
+
+class gameButton extends JButton {
+    Color color0   = new Color(143, 122, 102);
+    Color color1   = new Color(187, 173, 160);
+
+    Font ClearSans;
+    public gameButton(String name, int x, int y,Font f) {
+        super(name);
+        ClearSans = f;
+        addActionListener(new GameListener());
+
+        setFocusPainted(false);
+        setBorderPainted(false);
+
+        setForeground(Color.WHITE);
+
+        setContentAreaFilled(false);
+        setSize(200, 40);
+        setLocation(x, y);
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setFont(ClearSans.deriveFont(24f));
+
+        if (getModel().isArmed())
+            g.setColor(color1);
+        else
+            g.setColor(color0);
+        g.fillRoundRect(0, 0, getSize().width - 1, getSize().height - 1, 13, 13);
+        super.paintComponent(g);
+    }
+
+}
 class ShowScore extends JPanel{
     Color color0   = new Color(187, 173, 160);
     Color color1   = new Color(238,228,218);
@@ -163,13 +199,14 @@ class GraphicField extends JPanel {
 }
 public class GameScreen extends ScreenSetting implements KeyListener
 {
-    GameField field = new GameField();
+    public GameField field = new GameField();
     JPanel graphic;
     JPanel show_score;
 
     public GameScreen()
     {
-        add(new menuButton("Back to menu",600));
+        add(new gameButton("Menu",40, 530, ClearSans));
+        add(new gameButton("New game",250, 530, ClearSans));
 
         setLayout(null);
 
