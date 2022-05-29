@@ -11,7 +11,7 @@ public class Settings extends ScreenSetting {
         settings_label.setLocation(120, 40);
         add(settings_label);
         
-        add(new menuButton("Back to menu",500));
+        add(new menuButton("Back to menu",500,ClearSans));
 
         setLayout(null);
     }

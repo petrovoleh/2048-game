@@ -17,7 +17,7 @@ public class HowToPlay extends ScreenSetting {
         info_label.setLocation(50, 100);
         add(info_label);
 
-        add(new menuButton("Back to menu",500));
+        add(new menuButton("Back to menu",500,ClearSans));
 
         setLayout(null);
     }

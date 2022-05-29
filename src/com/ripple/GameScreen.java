@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
 
 
 class gameButton extends JButton {
@@ -13,10 +12,10 @@ class gameButton extends JButton {
     Color color1   = new Color(187, 173, 160);
 
     Font ClearSans;
-    public gameButton(String name, int x, int y, Font f) {
+    public gameButton(String name, int x, int y, Font f, JPanel game_over) {
         super(name);
         ClearSans = f;
-        addActionListener(new GameListener());
+        addActionListener(new GameListener(game_over));
 
         setFocusPainted(false);
         setBorderPainted(false);
@@ -42,6 +41,7 @@ class gameButton extends JButton {
     }
     
 }
+
 class ShowScore extends JPanel{
     Color color0   = new Color(187, 173, 160);
     Color color1   = new Color(238,228,218);
@@ -194,24 +194,52 @@ class GraphicField extends JPanel {
 
     }
 }
+
+class GameOver extends JPanel{
+    Color color0   = new Color(187, 173, 160,140);
+    Color color3   = new Color(119,110,101);
+    Font ClearSans;
+
+    GameOver(Font font) {
+        setVisible(false);
+        ClearSans = font;
+        setLocation(40, 100);
+        setSize(410, 410);
+        setBackground(color0);
+        repaint();
+    }
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.setFont(ClearSans.deriveFont(60f));
+        g.setColor(color3);
+        g.drawString("Game over!", 50, 220);
+
+    }
+}
+
 public class GameScreen extends ScreenSetting implements KeyListener
 {
     JPanel graphic;
     JPanel show_score;
+    JPanel game_over;
 
     public GameScreen()
     {
-
-        add(new gameButton("Menu",40, 530, ClearSans));
-        add(new gameButton("Undo",180, 530, ClearSans));
-        add(new gameButton("New game",320, 530,ClearSans));
-
         setLayout(null);
 
         graphic = new GraphicField(ClearSans);
         show_score = new ShowScore(ClearSans);
+        game_over = new GameOver(ClearSans);
+        add(game_over);
         add(graphic);
         add(show_score);
+        add(new gameButton("Menu",40, 530, ClearSans,game_over));
+        add(new gameButton("Undo",180, 530, ClearSans,game_over));
+        add(new gameButton("New game",320, 530,ClearSans,game_over));
+
         addKeyListener(this);
         setFocusable(true);
 
@@ -221,10 +249,9 @@ public class GameScreen extends ScreenSetting implements KeyListener
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key>=37 && key <=40 ||(key == 65 || key == 87 || key==68 || key==83)) {
-
-            GameField.move_parts(key);
-            graphic.repaint();
-            show_score.repaint();
+            if(GameField.move_parts(key))
+                game_over.setVisible(true);
+            repaint();
         }
     }
 

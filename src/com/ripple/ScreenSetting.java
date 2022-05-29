@@ -29,7 +29,7 @@ public class ScreenSetting extends JFrame {
         public void windowClosing(WindowEvent e) {
             GameField.save_field();
 
-            GameField.save_best();
+            GameField.save_score();
             System.exit(0);
         }
     };
