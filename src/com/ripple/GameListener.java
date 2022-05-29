@@ -2,6 +2,7 @@ package com.ripple;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class GameListener implements ActionListener {
     @Override
@@ -11,12 +12,22 @@ public class GameListener implements ActionListener {
             case "Menu" -> {
                 Main.menu.setVisible(true);
                 Main.game.setVisible(false);
+                GameField.save_field();
             }
             case "New game" -> {
-                Main.game.field.sdf;
+                GameField.create();
+                Main.game.repaint();
                 Main.game.requestFocusInWindow();
             }
-
+            case "Undo" -> {
+                System.out.println();
+                GameField.game_field=GameField.last_move;
+                GameField.score=GameField.last_score;
+                Main.game.repaint();
+                Main.game.requestFocusInWindow();
+            }
         }
+
     }
 }
+

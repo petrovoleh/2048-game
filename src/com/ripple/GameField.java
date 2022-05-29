@@ -4,47 +4,58 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameField{
 
-    public int[][] game_field = new int[4][4];
-    private int[][] merge_field = new int[4][4];
-    public int score = 0;
-    public int best = 0;
+    public static int[][] game_field = new int[4][4];
+    public static int[][] last_move = new int[4][4];
+    private static int[][] merge_field = new int[4][4];
+    public static int score = 0;
+    public static int last_score = 0;
+    public static int best = 0;
 
-    GameField() {
+    public static void create() {
+        game_field = new int[4][4];
+        score = 0;
         generate_parts();
         generate_parts();
-        download_best();
+        last_move = game_field;
     }
 
-    private void download_best(){
+    public static void download_score(){
         try {
-            Scanner scanner = new Scanner(new File("src/com/ripple/game_files/best_score.txt"));
+            Scanner scanner = new Scanner(new File("src/com/ripple/game_files/score.txt"));
             if(scanner.hasNextInt())
                 best=scanner.nextInt();
+            if(scanner.hasNextInt())
+                score=scanner.nextInt();
+            last_score=score;
         } catch (FileNotFoundException e) {
             try {
-                if(new File("src/com/ripple/game_files/best_score.txt").createNewFile())
+                if(new File("src/com/ripple/game_files/score.txt").createNewFile())
                     System.out.println("created new best_score file");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
     }
-    public void save_best(){
+    public static void save_best(){
         try {
-            FileWriter writer = new FileWriter("src/com/ripple/game_files/best_score.txt", false);
+            FileWriter writer = new FileWriter("src/com/ripple/game_files/score.txt", false);
             writer.write(String.valueOf(best));
+            writer.write(" ");
+            writer.write(String.valueOf(score));
+
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void merge_parts(int[][] temp_field){
+    private static void merge_parts(int[][] temp_field){
         for (int y = 0; y<4; y++) {
             for (int first = 0; first < 3; first++) {
                 int second = first+1;
@@ -61,7 +72,7 @@ public class GameField{
         }
     }
 
-    private void change_direction(int key_code){
+    private static void change_direction(int key_code){
         switch (key_code) {
             case 37, 65 -> merge_field = game_field;
             case 38, 87 -> merge_field = rotate_field(game_field);
@@ -70,7 +81,7 @@ public class GameField{
         }
     }
 
-    private boolean is_player_lost(){
+    private static boolean is_player_lost(){
         for (int x = 0; x < 4; x++)
             for (int y = 1; y < 3; y++)
                 if(game_field[x][y] == game_field[x][y+1] ||game_field[x][y] == game_field[x][y-1])
@@ -84,7 +95,7 @@ public class GameField{
         return true;
     }
 
-    private void normalize_direction(int key_code){
+    private static void normalize_direction(int key_code){
         switch (key_code) {
             case 37, 65 -> game_field = merge_field;
             case 38, 87 -> game_field = rotate_field(merge_field);
@@ -93,22 +104,22 @@ public class GameField{
         }
     }
 
-    private int[][] flip(int[][] array) {
+    private static int[][] flip(int[][] array) {
         int[][] temp_field= new int [4][4];
         for (int i = 0; i < 4; i++)
             System.arraycopy(array[3 - i], 0, temp_field[i], 0, 4);
         return temp_field;
     }
-    
-    private int[][] rotate_field(int[][] array) {
+
+    private static int[][] rotate_field(int[][] array) {
         int[][] temp_field= new int [4][4];
         for (int i = 0; i < 4; i++)
             for(int j = 0; j < 4; j++)
                 temp_field[i][j]=array[j][i];
         return temp_field;
     }
-    
-    private void remove_empty(){
+
+    private static void remove_empty(){
         for(int y =0; y<4; y++){
             for(int first_x =0; first_x<3; first_x++){
                 if(merge_field[first_x][y]==0){
@@ -122,17 +133,76 @@ public class GameField{
         }
     }
     
-    private boolean there_are_empty(){
+    private static boolean there_are_empty(){
         for (int x = 0; x < 4; x++)
             for (int y = 0; y < 4; y++)
                 if(game_field[x][y] == 0)
                     return true;
         return false;
     }
-    
-    public void move_parts(int key_code){
+
+    public static void save_field(){
+        try {
+            FileWriter writer = new FileWriter("src/com/ripple/game_files/field.txt", false);
+            for (int x = 0; x < 4; x++) {
+                for (int y = 0; y < 4; y++) {
+                    writer.write(String.valueOf(game_field[y][x]));
+                    writer.write(" ");
+                }
+                writer.write("\n");
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            try {
+                if(new File("src/com/ripple/game_files/field.txt").createNewFile())
+                    System.out.println("created new field file");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            save_field();
+        }
+    }
+
+    public static boolean download_field(){
+        try {
+            Scanner scanner = new Scanner(new File("src/com/ripple/game_files/field.txt"));
+            for (int x = 0; x < 4; x++)
+                for (int y = 0; y < 4; y++)
+                    if(scanner.hasNextInt())
+                        game_field[x][y]=scanner.nextInt();
+                    else
+                        return false;
+            last_move = game_field;
+        } catch (FileNotFoundException e) {
+            try {
+                if(new File("src/com/ripple/game_files/field.txt").createNewFile())
+                    System.out.println("created new field file");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public static void move_parts(int key_code){
+        last_move=game_field;
+        last_score=score;
+        for(int i = 0; i < 4; i++)
+            System.out.println(Arrays.toString(last_move[i]));
+        System.out.println();
+
+
+
         change_direction(key_code);
+        for(int i = 0; i < 4; i++)
+            System.out.println(Arrays.toString(last_move[i]));
+        System.out.println();
         merge_parts(merge_field);
+
+
+
         remove_empty();
         normalize_direction(key_code);
 
@@ -142,7 +212,7 @@ public class GameField{
             System.out.println("YOU LOST");
     }
 
-    private void generate_parts(){
+    private static void generate_parts(){
         Random rand = new Random();
         int rand_x = rand.nextInt(4);
         int rand_y = rand.nextInt(4);

@@ -11,6 +11,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        if(!GameField.download_field())
+            GameField.create();
+        GameField.download_score();
 
         game.setVisible(true);
     }

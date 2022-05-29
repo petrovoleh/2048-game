@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import java.util.Arrays;
 
 
 class gameButton extends JButton {
@@ -13,7 +13,7 @@ class gameButton extends JButton {
     Color color1   = new Color(187, 173, 160);
 
     Font ClearSans;
-    public gameButton(String name, int x, int y,Font f) {
+    public gameButton(String name, int x, int y, Font f) {
         super(name);
         ClearSans = f;
         addActionListener(new GameListener());
@@ -24,14 +24,14 @@ class gameButton extends JButton {
         setForeground(Color.WHITE);
 
         setContentAreaFilled(false);
-        setSize(200, 40);
+        setSize(130, 40);
         setLocation(x, y);
     }
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(ClearSans.deriveFont(24f));
+        g.setFont(ClearSans.deriveFont(20f));
 
         if (getModel().isArmed())
             g.setColor(color1);
@@ -40,16 +40,15 @@ class gameButton extends JButton {
         g.fillRoundRect(0, 0, getSize().width - 1, getSize().height - 1, 13, 13);
         super.paintComponent(g);
     }
-
+    
 }
 class ShowScore extends JPanel{
     Color color0   = new Color(187, 173, 160);
     Color color1   = new Color(238,228,218);
     Color color3   = new Color(119,110,101);
     Font ClearSans;
-    GameField field;
-    ShowScore(GameField f,Font font) {
-        field = f;
+    
+    ShowScore(Font font) {
         ClearSans = font;
         setLocation(40, 0);
         setSize(410, 100);
@@ -68,19 +67,19 @@ class ShowScore extends JPanel{
         g.setColor(color0);
         g.setFont(ClearSans.deriveFont(22f));
         FontMetrics fontMetrics = g.getFontMetrics();
-        String score = String.valueOf(field.score);
-        String best = String.valueOf(field.best);
+        String score = String.valueOf(GameField.score);
+        String best = String.valueOf(GameField.best);
 
 
 
         int score_width;
-        if (field.score < 10000)
+        if (GameField.score < 10000)
             score_width = (fontMetrics.stringWidth(score)+1)/10*10/2;
         else
             score_width = (fontMetrics.stringWidth(score)-2)/10*10/2;
 
         int best_width;
-        if (field.best < 10000)
+        if (GameField.best < 10000)
             best_width = (fontMetrics.stringWidth(best)+1)/10*10/2;
         else
             best_width = (fontMetrics.stringWidth(best)-2)/10*10/2;
@@ -128,10 +127,8 @@ class GraphicField extends JPanel {
     Font ClearSans;
 
 
-    GameField field;
-    GraphicField(GameField f, Font font) {
+    GraphicField(Font font) {
         ClearSans = font;
-        field = f;
         setLocation(40, 100);
         setSize(410, 410);
         setBackground(new Color(0, 0, 0, 0));
@@ -171,24 +168,24 @@ class GraphicField extends JPanel {
             for(int j = 0; j < 4; j++) {
 
                 g.setFont(ClearSans);
-                g.setColor(set_color(field.game_field[i][j]));
+                g.setColor(set_color(GameField.game_field[i][j]));
                 g2.fillRoundRect(10+i * 100, 10+j * 100, 90, 90, 10, 10);
 
-                if (field.game_field[i][j] !=0) {
-                    if(field.game_field[i][j] < 8)
+                if (GameField.game_field[i][j] !=0) {
+                    if(GameField.game_field[i][j] < 8)
                         g.setColor(new Color(120, 110, 100));
                     else
                         g.setColor(Color.WHITE);
-                    if(field.game_field[i][j] < 16)
+                    if(GameField.game_field[i][j] < 16)
                         g.setFont(ClearSans.deriveFont(48f));
-                    else if(field.game_field[i][j] < 128)
+                    else if(GameField.game_field[i][j] < 128)
                         g.setFont(ClearSans.deriveFont(44f));
-                    else if (field.game_field[i][j] < 1024)
+                    else if (GameField.game_field[i][j] < 1024)
                         g.setFont(ClearSans.deriveFont(38f));
                     else
                         g.setFont(ClearSans.deriveFont(32f));
                     FontMetrics fontMetrics = g.getFontMetrics();
-                    String s = String.valueOf(field.game_field[i][j]);
+                    String s = String.valueOf(GameField.game_field[i][j]);
                     g.drawString(s, 55 + i * 100 - fontMetrics.stringWidth(s) / 2, 75 + j * 100- fontMetrics.stringWidth(s) / 8);
                 }
 
@@ -199,19 +196,20 @@ class GraphicField extends JPanel {
 }
 public class GameScreen extends ScreenSetting implements KeyListener
 {
-    public GameField field = new GameField();
     JPanel graphic;
     JPanel show_score;
 
     public GameScreen()
     {
+
         add(new gameButton("Menu",40, 530, ClearSans));
-        add(new gameButton("New game",250, 530, ClearSans));
+        add(new gameButton("Undo",180, 530, ClearSans));
+        add(new gameButton("New game",320, 530,ClearSans));
 
         setLayout(null);
 
-        graphic = new GraphicField(field, ClearSans);
-        show_score = new ShowScore(field, ClearSans);
+        graphic = new GraphicField(ClearSans);
+        show_score = new ShowScore(ClearSans);
         add(graphic);
         add(show_score);
         addKeyListener(this);
@@ -222,12 +220,11 @@ public class GameScreen extends ScreenSetting implements KeyListener
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        System.out.println(key);
         if (key>=37 && key <=40 ||(key == 65 || key == 87 || key==68 || key==83)) {
-            field.move_parts(key);
+
+            GameField.move_parts(key);
             graphic.repaint();
             show_score.repaint();
-            field.save_best();
         }
     }
 
