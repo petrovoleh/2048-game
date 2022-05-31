@@ -1,7 +1,6 @@
 package com.ripple;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Settings extends ScreenSetting {
     Settings() {

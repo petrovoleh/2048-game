@@ -9,9 +9,7 @@ public class Main {
     public static JFrame settings = new Settings();
 
     public static void main(String[] args) {
-
         GameField.create();
-
         menu.setVisible(true);
     }
 }

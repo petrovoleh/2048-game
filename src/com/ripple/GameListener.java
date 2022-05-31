@@ -3,7 +3,6 @@ package com.ripple;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class GameListener implements ActionListener {
     JPanel game_over;

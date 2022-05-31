@@ -29,7 +29,8 @@ public class GameField{
         generate_parts();
         last_move=game_field.clone();
     }
-    public static void download_score(){
+
+    private static void download_score(){
         try {
             Scanner scanner = new Scanner(new File("src/com/ripple/game_files/score.txt"));
             if(scanner.hasNextInt())
@@ -46,6 +47,7 @@ public class GameField{
             }
         }
     }
+
     public static void save_score(){
         try {
             FileWriter writer = new FileWriter("src/com/ripple/game_files/score.txt", false);
@@ -76,8 +78,6 @@ public class GameField{
         }
     }
 
-
-
     private static boolean is_player_lost(){
         for (int x = 0; x < 4; x++)
             for (int y = 1; y < 3; y++)
@@ -98,6 +98,7 @@ public class GameField{
             case 40, 83 -> game_field = flip(rotate_field(game_field));
         }
     }
+
     private static void normalize_direction(int key_code){
         switch (key_code) {
             case 38, 87 -> game_field = rotate_field(game_field);
@@ -194,6 +195,7 @@ public class GameField{
             temp_field[i]=Arrays.copyOf(game_field[i],4);
         return temp_field;
     }
+
     public static boolean move_parts(int key_code){
 
         last_move=copy_last_move();

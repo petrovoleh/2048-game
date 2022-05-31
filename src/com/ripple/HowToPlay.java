@@ -9,7 +9,7 @@ public class HowToPlay extends ScreenSetting {
         how_to_label.setForeground(text_color);
         how_to_label.setSize(300,70);
         how_to_label.setLocation(100, 80);
-        add(how_to_label);
+
 
         JLabel info_label = new JLabel(
                 "<html><p align=\"justify\">Use your arrow keys to move the tiles. " +
@@ -20,10 +20,10 @@ public class HowToPlay extends ScreenSetting {
         info_label.setFont(ClearSans.deriveFont(28f));
         info_label.setSize(400,300);
         info_label.setLocation(45, 140);
+
         add(info_label);
-
+        add(how_to_label);
         add(new menuButton("Back to menu",520,ClearSans));
-
         setLayout(null);
     }
 }

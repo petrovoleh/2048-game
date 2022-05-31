@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
-class exitListener extends WindowAdapter {
+class ExitListener extends WindowAdapter {
     @Override
     public void windowClosing(WindowEvent e) {
         GameField.save_field();
@@ -24,7 +24,7 @@ public class ScreenSetting extends JFrame {
     ScreenSetting() {
         download_font();
         setTitle("2048");
-        addWindowListener(new exitListener());
+        addWindowListener(new ExitListener());
         getContentPane().setBackground(background_color);
         setSize(500,630);
 
@@ -42,5 +42,4 @@ public class ScreenSetting extends JFrame {
             e.printStackTrace();
         }
     }
-
 }
