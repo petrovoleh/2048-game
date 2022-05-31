@@ -18,7 +18,7 @@ public class menuButton extends JButton {
         setContentAreaFilled(false);
 
         setSize(250, 50);
-        setLocation(120, y);
+        setLocation(117, y);
         setForeground(Color.WHITE);
     }
     @Override

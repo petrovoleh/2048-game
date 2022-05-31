@@ -7,11 +7,13 @@ import java.util.Arrays;
 
 public class GameListener implements ActionListener {
     JPanel game_over;
-    GameListener(JPanel game_o){
-        game_over=game_o;
+    GameListener(JPanel game_ov){
+        game_over=game_ov;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        Main.game.requestFocusInWindow();
+        Main.game.repaint();
         switch (e.getActionCommand()) {
             case "Menu" -> {
                 Main.menu.setVisible(true);
@@ -19,21 +21,15 @@ public class GameListener implements ActionListener {
                 GameField.save_field();
             }
             case "New game" -> {
-                GameField.create();
+                GameField.generate_new();
                 game_over.setVisible(false);
-                Main.game.repaint();
-                Main.game.requestFocusInWindow();
             }
             case "Undo" -> {
-                System.out.println();
                 GameField.game_field=GameField.last_move;
                 GameField.score=GameField.last_score;
                 game_over.setVisible(false);
-                Main.game.repaint();
-                Main.game.requestFocusInWindow();
             }
         }
-
     }
 }
 

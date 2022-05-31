@@ -48,11 +48,11 @@ class ShowScore extends JPanel{
     Color color3   = new Color(119,110,101);
     Font ClearSans;
     
-    ShowScore(Font font) {
+    ShowScore(Font font, Color background_color) {
         ClearSans = font;
         setLocation(40, 0);
         setSize(410, 100);
-        setBackground(new Color(250,240,230));
+        setBackground(background_color);
         repaint();
     }
     protected void paintComponent(Graphics g) {
@@ -62,7 +62,7 @@ class ShowScore extends JPanel{
 
         g.setFont(ClearSans.deriveFont(86f));
         g.setColor(color3);
-        g.drawString("2048", 0, 80);
+        g.drawString("2048", 0, 75);
 
         g.setColor(color0);
         g.setFont(ClearSans.deriveFont(22f));
@@ -231,7 +231,7 @@ public class GameScreen extends ScreenSetting implements KeyListener
         setLayout(null);
 
         graphic = new GraphicField(ClearSans);
-        show_score = new ShowScore(ClearSans);
+        show_score = new ShowScore(ClearSans, background_color);
         game_over = new GameOver(ClearSans);
         add(game_over);
         add(graphic);

@@ -17,13 +17,18 @@ public class GameField{
     public static int best = 0;
 
     public static void create() {
+        download_score();
+        if(!GameField.download_field())
+            generate_new();
+    }
+
+    public static void generate_new(){
         game_field = new int[4][4];
         score = 0;
         generate_parts();
         generate_parts();
         last_move=game_field.clone();
     }
-
     public static void download_score(){
         try {
             Scanner scanner = new Scanner(new File("src/com/ripple/game_files/score.txt"));
