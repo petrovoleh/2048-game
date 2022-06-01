@@ -17,8 +17,8 @@ public class GameField{
     public static int best = 0;
 
     public static void create() {
-        download_score();
-        if(!GameField.download_field())
+        load_score();
+        if(!GameField.load_field())
             generate_new();
     }
 
@@ -30,7 +30,7 @@ public class GameField{
         last_move=game_field.clone();
     }
 
-    private static void download_score(){
+    private static void load_score(){
         try {
             Scanner scanner = new Scanner(new File("src/com/ripple/game_files/score.txt"));
             if(scanner.hasNextInt())
@@ -41,7 +41,7 @@ public class GameField{
         } catch (FileNotFoundException e) {
             try {
                 if(new File("src/com/ripple/game_files/score.txt").createNewFile())
-                    System.out.println("created new best_score file");
+                    System.out.println("created new score file");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -167,7 +167,7 @@ public class GameField{
         }
     }
 
-    public static boolean download_field(){
+    public static boolean load_field(){
         try {
             Scanner scanner = new Scanner(new File("src/com/ripple/game_files/field.txt"));
             for (int x = 0; x < 4; x++)

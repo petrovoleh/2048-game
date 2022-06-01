@@ -10,6 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         GameField.create();
+        GameTheme.load_theme();
         menu.setVisible(true);
     }
     public static void recreate(){
@@ -19,5 +20,7 @@ public class Main {
         game = new GameScreen();
         menu = new Menu();
         how_to_play = new HowToPlay();
+        Main.settings.getContentPane().setBackground(GameTheme.background_color);
+        settings.repaint();
     }
 }

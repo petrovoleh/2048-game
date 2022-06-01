@@ -91,7 +91,7 @@ class ShowScore extends JPanel{
 
         g.drawString(best, 380 - best_width/2 - fontMetrics.stringWidth(best) / 2, 70);
 
-        g.setColor(GameTheme.color2);
+        g.setColor(GameTheme.font_color2);
         g.setFont(ClearSans.deriveFont(16f));
 
         fontMetrics = g.getFontMetrics();
@@ -177,7 +177,6 @@ class GraphicField extends JPanel {
 }
 
 class GameOver extends JPanel{
-    Color color0   = new Color(187, 173, 160,140);
     Font ClearSans;
 
     GameOver(Font font) {
@@ -185,7 +184,7 @@ class GameOver extends JPanel{
         ClearSans = font;
         setLocation(40, 100);
         setSize(410, 410);
-        setBackground(color0);
+        setBackground(GameTheme.game_over_color);
         repaint();
     }
     protected void paintComponent(Graphics g) {

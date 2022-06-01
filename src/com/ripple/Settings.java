@@ -1,21 +1,28 @@
 package com.ripple;
 
-import javax.swing.*;
+import java.awt.*;
 
 public class Settings extends ScreenSetting {
     Settings() {
-        JLabel settings_label = new JLabel("Settings", SwingConstants.CENTER);
-        settings_label.setFont(ClearSans.deriveFont(38f));
-        settings_label.setForeground(GameTheme.font_color);
-        settings_label.setSize(250,70);
-        settings_label.setLocation(115, 40);
-        add(settings_label);
-
-        add(new menuButton("Classic",260,ClearSans));
-        add(new menuButton("Pink",340,ClearSans));
-        add(new menuButton("Dark",420,ClearSans));
-        add(new menuButton("Back to menu",520,ClearSans));
+        add(new menuButton("Classic", 140, ClearSans));
+        add(new menuButton("Pink", 200, ClearSans));
+        add(new menuButton("Gray", 260, ClearSans));
+        add(new menuButton("Dark Red", 320, ClearSans));
+        add(new menuButton("Rainbow", 380, ClearSans));
+        add(new menuButton("Back to menu", 520, ClearSans));
 
         setLayout(null);
+        repaint();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        g.setFont(ClearSans.deriveFont(38f));
+        g.setColor(GameTheme.font_color);
+        g.drawString("Select theme", 135, 140);
     }
 }
