@@ -17,15 +17,13 @@ class ExitListener extends WindowAdapter {
 }
 
 public class ScreenSetting extends JFrame {
-    protected Color text_color = new Color(119,110,101);
-    protected Color background_color = new Color(250,240,230);
     protected Font ClearSans;
 
     ScreenSetting() {
         download_font();
         setTitle("2048");
         addWindowListener(new ExitListener());
-        getContentPane().setBackground(background_color);
+        getContentPane().setBackground(GameTheme.background_color);
         setSize(500,630);
 
         setVisible(false);

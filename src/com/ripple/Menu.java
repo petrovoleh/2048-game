@@ -9,7 +9,7 @@ public class Menu extends ScreenSetting {
         JLabel l2048 = new JLabel("2048", SwingConstants.CENTER);
         l2048.setSize(250,180);
         l2048.setLocation(120, 40);
-        l2048.setForeground(text_color);
+        l2048.setForeground(GameTheme.font_color);
         l2048.setFont(ClearSans.deriveFont(100f));
         add(l2048);
 

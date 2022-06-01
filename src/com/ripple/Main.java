@@ -12,4 +12,12 @@ public class Main {
         GameField.create();
         menu.setVisible(true);
     }
+    public static void recreate(){
+        game.dispose();
+        menu.dispose();
+        how_to_play.dispose();
+        game = new GameScreen();
+        menu = new Menu();
+        how_to_play = new HowToPlay();
+    }
 }

@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class menuButton extends JButton {
-    Color unpressed   = new Color(143, 122, 102);
-    Color pressed = new Color(187, 173, 160);
+
 
     public menuButton(String name, int y, Font ClearSans) {
         setText(name);
@@ -24,9 +23,9 @@ public class menuButton extends JButton {
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         if (getModel().isArmed())
-            g.setColor(pressed);
+            g.setColor(GameTheme.button_pressed);
         else
-            g.setColor(unpressed);
+            g.setColor(GameTheme.button_color);
         g.fillRoundRect(0, 0, getSize().width - 1, getSize().height - 1, 13, 13);
         super.paintComponent(g);
     }

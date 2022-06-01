@@ -8,9 +8,6 @@ import java.awt.event.KeyListener;
 
 
 class gameButton extends JButton {
-    Color color0   = new Color(143, 122, 102);
-    Color color1   = new Color(187, 173, 160);
-
     Font ClearSans;
     public gameButton(String name, int x, int y, Font f, JPanel game_over) {
         super(name);
@@ -33,9 +30,9 @@ class gameButton extends JButton {
         g.setFont(ClearSans.deriveFont(20f));
 
         if (getModel().isArmed())
-            g.setColor(color1);
+            g.setColor(GameTheme.button_pressed);
         else
-            g.setColor(color0);
+            g.setColor(GameTheme.button_color);
         g.fillRoundRect(0, 0, getSize().width - 1, getSize().height - 1, 13, 13);
         super.paintComponent(g);
     }
@@ -43,16 +40,13 @@ class gameButton extends JButton {
 }
 
 class ShowScore extends JPanel{
-    Color color0   = new Color(187, 173, 160);
-    Color color1   = new Color(238,228,218);
-    Color color3   = new Color(119,110,101);
     Font ClearSans;
     
-    ShowScore(Font font, Color background_color) {
+    ShowScore(Font font){
         ClearSans = font;
         setLocation(40, 0);
         setSize(410, 100);
-        setBackground(background_color);
+        setBackground(new Color(0,0,0,0));
         repaint();
     }
     protected void paintComponent(Graphics g) {
@@ -61,10 +55,10 @@ class ShowScore extends JPanel{
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g.setFont(ClearSans.deriveFont(86f));
-        g.setColor(color3);
+        g.setColor(GameTheme.font_color);
         g.drawString("2048", 0, 75);
 
-        g.setColor(color0);
+        g.setColor(GameTheme.field_color);
         g.setFont(ClearSans.deriveFont(22f));
         FontMetrics fontMetrics = g.getFontMetrics();
         String score = String.valueOf(GameField.score);
@@ -97,7 +91,7 @@ class ShowScore extends JPanel{
 
         g.drawString(best, 380 - best_width/2 - fontMetrics.stringWidth(best) / 2, 70);
 
-        g.setColor(color1);
+        g.setColor(GameTheme.color2);
         g.setFont(ClearSans.deriveFont(16f));
 
         fontMetrics = g.getFontMetrics();
@@ -111,56 +105,50 @@ class ShowScore extends JPanel{
 }
 
 class GraphicField extends JPanel {
-    Color color0   = new Color(205,193,180);
-    Color color2   = new Color(238,228,218);
-    Color color4   = new Color(230,210,190);
-    Color color8   = new Color(240, 178, 124);
-    Color color16  = new Color(246, 150, 100);
-    Color color32  = new Color(247,124,95);
-    Color color64  = new Color(247, 95, 59);
-    Color color128 = new Color(237, 208, 115);
-    Color color256 = new Color(237, 208, 98);
-    Color color512 = new Color(237, 208, 80);
-    Color color1024 = new Color(237, 208, 50);
-    Color color2048 = new Color(237, 208, 20);
-    Color color4096 = new Color(100, 100, 220);
     Font ClearSans;
-
 
     GraphicField(Font font) {
         ClearSans = font;
         setLocation(40, 100);
         setSize(410, 410);
-        setBackground(new Color(0, 0, 0, 0));
+        setBackground(new Color(0,0,0,0));
     }
-
-
 
     private Color set_color(int value){
         Color returned_color;
         switch (value){
-            case 0 -> returned_color=color0;
-            case 2 -> returned_color=color2;
-            case 4 -> returned_color=color4;
-            case 8 -> returned_color=color8;
-            case 16 -> returned_color=color16;
-            case 32 -> returned_color=color32;
-            case 64 -> returned_color=color64;
-            case 128 -> returned_color=color128;
-            case 256 -> returned_color=color256;
-            case 512 -> returned_color=color512;
-            case 1024 -> returned_color=color1024;
-            case 2048 -> returned_color=color2048;
-            default -> returned_color=color4096;
+            case 0 -> returned_color=GameTheme.color0;
+            case 2 -> returned_color=GameTheme.color2;
+            case 4 -> returned_color=GameTheme.color4;
+            case 8 -> returned_color=GameTheme.color8;
+            case 16 -> returned_color=GameTheme.color16;
+            case 32 -> returned_color=GameTheme.color32;
+            case 64 -> returned_color=GameTheme.color64;
+            case 128 -> returned_color=GameTheme.color128;
+            case 256 -> returned_color=GameTheme.color256;
+            case 512 -> returned_color=GameTheme.color512;
+            case 1024 -> returned_color=GameTheme.color1024;
+            case 2048 -> returned_color=GameTheme.color2048;
+            default -> returned_color=GameTheme.color4096;
         }
         return returned_color;
     }
+    private float select_font_size(int i, int j){
+        if(GameField.game_field[i][j] < 16)
+            return 48f;
+        else if(GameField.game_field[i][j] < 128)
+            return 44f;
+        else if (GameField.game_field[i][j] < 1024)
+            return 38f;
+        return 32f;
+    }
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setColor(new Color(187, 173, 160));
+        g.setColor(GameTheme.field_color);
         g.fillRoundRect(0, 0, 410, 410, 10, 10);
 
 
@@ -173,22 +161,15 @@ class GraphicField extends JPanel {
 
                 if (GameField.game_field[i][j] !=0) {
                     if(GameField.game_field[i][j] < 8)
-                        g.setColor(new Color(120, 110, 100));
+                        g.setColor(GameTheme.font_color);
                     else
                         g.setColor(Color.WHITE);
-                    if(GameField.game_field[i][j] < 16)
-                        g.setFont(ClearSans.deriveFont(48f));
-                    else if(GameField.game_field[i][j] < 128)
-                        g.setFont(ClearSans.deriveFont(44f));
-                    else if (GameField.game_field[i][j] < 1024)
-                        g.setFont(ClearSans.deriveFont(38f));
-                    else
-                        g.setFont(ClearSans.deriveFont(32f));
+                    g.setFont(ClearSans.deriveFont(select_font_size(i,j)));
+
                     FontMetrics fontMetrics = g.getFontMetrics();
                     String s = String.valueOf(GameField.game_field[i][j]);
                     g.drawString(s, 55 + i * 100 - fontMetrics.stringWidth(s) / 2, 75 + j * 100- fontMetrics.stringWidth(s) / 8);
                 }
-
             }
         }
 
@@ -197,7 +178,6 @@ class GraphicField extends JPanel {
 
 class GameOver extends JPanel{
     Color color0   = new Color(187, 173, 160,140);
-    Color color3   = new Color(119,110,101);
     Font ClearSans;
 
     GameOver(Font font) {
@@ -214,7 +194,7 @@ class GameOver extends JPanel{
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g.setFont(ClearSans.deriveFont(60f));
-        g.setColor(color3);
+        g.setColor(GameTheme.font_color);
         g.drawString("Game over!", 50, 220);
 
     }
@@ -231,7 +211,7 @@ public class GameScreen extends ScreenSetting implements KeyListener
         setLayout(null);
 
         graphic = new GraphicField(ClearSans);
-        show_score = new ShowScore(ClearSans, background_color);
+        show_score = new ShowScore(ClearSans);
         game_over = new GameOver(ClearSans);
         add(game_over);
         add(graphic);

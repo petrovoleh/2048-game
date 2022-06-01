@@ -20,6 +20,18 @@ public class MenuListener implements ActionListener {
                 Main.how_to_play.setVisible(false);
                 Main.menu.setVisible(true);
             }
+            case "Classic" ->{
+                GameTheme.classic();
+                Main.settings.getContentPane().setBackground(GameTheme.background_color);
+            }
+            case "Pink" ->{
+                GameTheme.pink();
+                Main.settings.getContentPane().setBackground(GameTheme.background_color);
+            }
+            case "Dark" ->{
+                GameTheme.dark();
+                Main.settings.getContentPane().setBackground(GameTheme.background_color);
+            }
         }
     }
 }
