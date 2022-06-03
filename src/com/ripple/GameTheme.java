@@ -80,9 +80,9 @@ public class GameTheme {
     }
     public static void pink(){
         color0   = new Color(250, 212, 212);
-        color2   = Color.PINK;
-        color4   = Color.PINK;
-        color8   = Color.PINK;
+        color2   = new Color(255,175,185);
+        color4   = new Color(245,165,175);
+        color8   = new Color(235,145,155);
         color16  = Color.PINK;
         color32  = Color.PINK;
         color64  = Color.PINK;
@@ -103,14 +103,14 @@ public class GameTheme {
         save_theme("pink");
     }
 
-    public static void red(){
-        color0   = new Color(93,0,9);
-        color2   = new Color(238,228,218);
-        color4   = new Color(244,191,191);
-        color8   = new Color(239,172,172);
-        color16  = new Color(251,125,125);
-        color32  = new Color(212,82,82);
-        color64  = new Color(245, 78, 78);
+    public static void red() {
+        color0 = new Color(93, 0, 9);
+        color2 = new Color(238, 228, 218);
+        color4 = new Color(244, 191, 191);
+        color8 = new Color(239, 172, 172);
+        color16 = new Color(251, 125, 125);
+        color32 = new Color(212, 82, 82);
+        color64 = new Color(245, 78, 78);
         color128 = new Color(199, 28, 28);
         color256 = new Color(165, 0, 0);
         color512 = new Color(132, 43, 43);
@@ -118,12 +118,12 @@ public class GameTheme {
         color2048 = new Color(61, 0, 0);
         color4096 = new Color(0, 0, 0);
         font_color = new Color(0, 0, 0);
-        font_color2 = new Color(0,0,0);
-        background_color = new Color(93,0,9);
-        field_color =new Color(139, 63, 70);
+        font_color2 = new Color(0, 0, 0);
+        background_color = new Color(93, 0, 9);
+        field_color = new Color(139, 63, 70);
         button_color = new Color(117, 0, 11);
         button_pressed = new Color(177, 70, 80);
-        game_over_color   = new Color(132, 43, 43,140);
+        game_over_color = new Color(132, 43, 43, 140);
         Main.recreate();
         save_theme("red");
     }
