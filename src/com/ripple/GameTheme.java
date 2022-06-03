@@ -104,26 +104,26 @@ public class GameTheme {
     }
 
     public static void red(){
-        color0   = new Color(205,193,180);
+        color0   = new Color(93,0,9);
         color2   = new Color(238,228,218);
-        color4   = new Color(230,210,190);
-        color8   = new Color(240, 178, 124);
-        color16  = new Color(246, 150, 100);
-        color32  = new Color(247,124,95);
-        color64  = new Color(247, 95, 59);
-        color128 = new Color(237, 208, 115);
-        color256 = new Color(237, 208, 98);
-        color512 = new Color(237, 208, 80);
-        color1024 = new Color(237, 208, 50);
-        color2048 = new Color(237, 208, 20);
-        color4096 = new Color(100, 100, 220);
-        font_color = new Color(120, 110, 100);
-        font_color2 = new Color(238,228,218);
-        background_color = new Color(250,240,230);
-        field_color =new Color(187, 173, 160);
-        button_color = new Color(143, 122, 102);
-        button_pressed = new Color(183, 162, 142);
-        game_over_color   = new Color(187, 173, 160,140);
+        color4   = new Color(244,191,191);
+        color8   = new Color(239,172,172);
+        color16  = new Color(251,125,125);
+        color32  = new Color(212,82,82);
+        color64  = new Color(245, 78, 78);
+        color128 = new Color(199, 28, 28);
+        color256 = new Color(165, 0, 0);
+        color512 = new Color(132, 43, 43);
+        color1024 = new Color(97, 2, 2);
+        color2048 = new Color(61, 0, 0);
+        color4096 = new Color(0, 0, 0);
+        font_color = new Color(0, 0, 0);
+        font_color2 = new Color(0,0,0);
+        background_color = new Color(93,0,9);
+        field_color =new Color(139, 63, 70);
+        button_color = new Color(117, 0, 11);
+        button_pressed = new Color(177, 70, 80);
+        game_over_color   = new Color(132, 43, 43,140);
         Main.recreate();
         save_theme("red");
     }
