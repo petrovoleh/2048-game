@@ -8,10 +8,9 @@ import java.awt.event.KeyListener;
 
 
 class gameButton extends JButton {
-    Font ClearSans;
-    public gameButton(String name, int x, int y, Font f, JPanel game_over) {
+
+    public gameButton(String name, int x, int y, JPanel game_over) {
         super(name);
-        ClearSans = f;
         addActionListener(new GameListener(game_over));
 
         setFocusPainted(false);
@@ -27,7 +26,7 @@ class gameButton extends JButton {
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(ClearSans.deriveFont(20f));
+        g.setFont(GameTheme.ClearSans.deriveFont(20f));
 
         if (getModel().isArmed())
             g.setColor(GameTheme.button_pressed);
@@ -40,10 +39,8 @@ class gameButton extends JButton {
 }
 
 class ShowScore extends JPanel{
-    Font ClearSans;
-    
-    ShowScore(Font font){
-        ClearSans = font;
+
+    ShowScore(){
         setLocation(40, 0);
         setSize(410, 100);
         setBackground(new Color(0,0,0,0));
@@ -54,12 +51,12 @@ class ShowScore extends JPanel{
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g.setFont(ClearSans.deriveFont(86f));
+        g.setFont(GameTheme.ClearSans.deriveFont(86f));
         g.setColor(GameTheme.font_color);
         g.drawString("2048", 0, 75);
 
         g.setColor(GameTheme.field_color);
-        g.setFont(ClearSans.deriveFont(22f));
+        g.setFont(GameTheme.ClearSans.deriveFont(22f));
         FontMetrics fontMetrics = g.getFontMetrics();
         String score = String.valueOf(GameField.score);
         String best = String.valueOf(GameField.best);
@@ -92,7 +89,7 @@ class ShowScore extends JPanel{
         g.drawString(best, 380 - best_width/2 - fontMetrics.stringWidth(best) / 2, 70);
 
         g.setColor(GameTheme.font_color2);
-        g.setFont(ClearSans.deriveFont(16f));
+        g.setFont(GameTheme.ClearSans.deriveFont(16f));
 
         fontMetrics = g.getFontMetrics();
         score = "SCORE";
@@ -105,10 +102,8 @@ class ShowScore extends JPanel{
 }
 
 class GraphicField extends JPanel {
-    Font ClearSans;
 
-    GraphicField(Font font) {
-        ClearSans = font;
+    GraphicField() {
         setLocation(40, 100);
         setSize(410, 410);
         setBackground(new Color(0,0,0,0));
@@ -155,7 +150,7 @@ class GraphicField extends JPanel {
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
 
-                g.setFont(ClearSans);
+                g.setFont(GameTheme.ClearSans);
                 g.setColor(set_color(GameField.game_field[i][j]));
                 g2.fillRoundRect(10+i * 100, 10+j * 100, 90, 90, 10, 10);
 
@@ -164,7 +159,7 @@ class GraphicField extends JPanel {
                         g.setColor(GameTheme.font_color);
                     else
                         g.setColor(Color.WHITE);
-                    g.setFont(ClearSans.deriveFont(select_font_size(i,j)));
+                    g.setFont(GameTheme.ClearSans.deriveFont(select_font_size(i,j)));
 
                     FontMetrics fontMetrics = g.getFontMetrics();
                     String s = String.valueOf(GameField.game_field[i][j]);
@@ -177,11 +172,8 @@ class GraphicField extends JPanel {
 }
 
 class GameOver extends JPanel{
-    Font ClearSans;
-
-    GameOver(Font font) {
+    GameOver() {
         setVisible(false);
-        ClearSans = font;
         setLocation(40, 100);
         setSize(410, 410);
         setBackground(GameTheme.game_over_color);
@@ -192,14 +184,14 @@ class GameOver extends JPanel{
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g.setFont(ClearSans.deriveFont(60f));
+        g.setFont(GameTheme.ClearSans.deriveFont(60f));
         g.setColor(GameTheme.font_color);
         g.drawString("Game over!", 50, 220);
 
     }
 }
 
-public class GameScreen extends ScreenSetting implements KeyListener
+public class GameScreen extends FrameSettings implements KeyListener
 {
     JPanel graphic;
     JPanel show_score;
@@ -207,17 +199,15 @@ public class GameScreen extends ScreenSetting implements KeyListener
 
     public GameScreen()
     {
-        setLayout(null);
-
-        graphic = new GraphicField(ClearSans);
-        show_score = new ShowScore(ClearSans);
-        game_over = new GameOver(ClearSans);
+        graphic = new GraphicField();
+        show_score = new ShowScore();
+        game_over = new GameOver();
         add(game_over);
         add(graphic);
         add(show_score);
-        add(new gameButton("Menu",40, 530, ClearSans,game_over));
-        add(new gameButton("Undo",180, 530, ClearSans,game_over));
-        add(new gameButton("New game",320, 530,ClearSans,game_over));
+        add(new gameButton("Menu",40, 530,game_over));
+        add(new gameButton("Undo",180, 530,game_over));
+        add(new gameButton("New game",320, 530,game_over));
 
         addKeyListener(this);
         setFocusable(true);

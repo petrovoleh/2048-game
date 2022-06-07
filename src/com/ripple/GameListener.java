@@ -11,6 +11,7 @@ public class GameListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+
         Main.game.requestFocusInWindow();
         Main.game.repaint();
         switch (e.getActionCommand()) {
@@ -29,6 +30,7 @@ public class GameListener implements ActionListener {
                 game_over.setVisible(false);
             }
         }
+
     }
 }
 

@@ -1,28 +1,25 @@
 package com.ripple;
 
+import javax.swing.*;
 import java.awt.*;
 
 //SETTING SCREEN
-public class Settings extends ScreenSetting {
+public class Settings extends FrameSettings {
     Settings() {
-        add(new menuButton("Classic", 140, ClearSans));
-        add(new menuButton("Pink", 200, ClearSans));
-        add(new menuButton("Gray", 260, ClearSans));
-        add(new menuButton("Dark Red", 320, ClearSans));
-        add(new menuButton("Rainbow", 380, ClearSans));
-        add(new menuButton("Back to menu", 520, ClearSans));
+        JLabel select_label = new JLabel("Select theme", SwingConstants.CENTER);
+        select_label.setFont(GameTheme.ClearSans.deriveFont(38f));
+        select_label.setForeground(GameTheme.font_color);
+        select_label.setSize(300,70);
+        select_label.setLocation(93, 70);
+        add(select_label);
 
-        setLayout(null);
-        repaint();
+        add(new menuButton("Classic", 140, GameTheme.ClearSans));
+        add(new menuButton("Pink", 200, GameTheme.ClearSans));
+        add(new menuButton("Gray", 260, GameTheme.ClearSans));
+        add(new menuButton("Dark Red", 320, GameTheme.ClearSans));
+        add(new menuButton("Rainbow", 380, GameTheme.ClearSans));
+        add(new menuButton("Back to menu", 520, GameTheme.ClearSans));
+
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(ClearSans.deriveFont(38f));
-        g.setColor(GameTheme.font_color);
-        g.drawString("Select theme", 135, 140);
-    }
 }
