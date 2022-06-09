@@ -9,7 +9,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GameField{
-
     public static int[][] game_field = new int[4][4];
     public static int[][] last_move = new int[4][4];
     public static int score = 0;
@@ -25,6 +24,7 @@ public class GameField{
     public static void generate_new(){
         game_field = new int[4][4];
         score = 0;
+        last_score = 0;
         generate_parts();
         generate_parts();
         last_move=game_field.clone();

@@ -7,40 +7,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+//All game colours here
 public class GameTheme {
-    public static Font ClearSans;
+    public static Color color0;
+    public static Color color2;
+    public static Color color4;
+    public static Color color8;
+    public static Color color16;
+    public static Color color32;
+    public static Color color64;
+    public static Color color128;
+    public static Color color256;
+    public static Color color512;
+    public static Color color1024;
+    public static Color color2048;
+    public static Color color4096;
+    public static Color font_color ;
+    public static Color font_color2;
+    public static Color background_color;
+    public static Color field_color;
+    public static Color button_color;
+    public static Color button_pressed;
+    public static Color game_over_color;
 
-    static Color color0;
-    static Color color2;
-    static Color color4;
-    static Color color8;
-    static Color color16;
-    static Color color32;
-    static Color color64;
-    static Color color128;
-    static Color color256;
-    static Color color512;
-    static Color color1024;
-    static Color color2048;
-    static Color color4096;
-    static Color font_color ;
-    static Color font_color2;
-    static Color background_color;
-    static Color field_color;
-    static Color button_color;
-    static Color button_pressed;
-    static Color game_over_color;
-
-    public static void download_font(){
-        try {
-            String path= "src/com/ripple/game_files/ClearSans-Bold.ttf";
-            ClearSans = Font.createFont(Font.TRUETYPE_FONT, new File(path));
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(ClearSans);
-        } catch (IOException |FontFormatException e) {
-            e.printStackTrace();
-        }
-    }
     public static void classic(){
         color0   = new Color(205,193,180);
         color2   = new Color(238,228,218);
@@ -62,10 +51,10 @@ public class GameTheme {
         button_color = new Color(143, 122, 102);
         button_pressed = new Color(183, 162, 142);
         game_over_color   = new Color(187, 173, 160,140);
-
-        Main.redraw();
+        Screen.redraw();
         save_theme("classic");
     }
+
     public static void gray(){
         color0   = Color.GRAY;
         color2   = new Color(100,100,100);
@@ -87,9 +76,10 @@ public class GameTheme {
         button_color = Color.DARK_GRAY;
         button_pressed = Color.BLACK;
         game_over_color   = new Color(180, 180, 180,140);
-        Main.redraw();
+        Screen.redraw();
         save_theme("gray");
     }
+
     public static void pink(){
         color0   = new Color(250, 212, 212);
         color2   = new Color(255,175,185);
@@ -105,13 +95,13 @@ public class GameTheme {
         color2048 = Color.PINK;
         color4096 = Color.PINK;
         font_color = new Color(255, 242, 242);
-        font_color2 = new Color(250, 230, 230);;
+        font_color2 = new Color(250, 230, 230);
         background_color = new Color(250, 212, 212);
         field_color = new Color(239, 159, 159);
         button_color = new Color(239, 159, 159);
         button_pressed = Color.PINK;
         game_over_color   = new Color(160, 110, 110,140);
-        Main.redraw();
+        Screen.redraw();
         save_theme("pink");
     }
 
@@ -136,9 +126,10 @@ public class GameTheme {
         button_color = new Color(117, 0, 11);
         button_pressed = new Color(177, 70, 80);
         game_over_color = new Color(132, 43, 43, 140);
-        Main.redraw();
+        Screen.redraw();
         save_theme("red");
     }
+
     public static void rainbow(){
         color0   = new Color(205,193,180);
         color2   = new Color(238,228,218);
@@ -160,9 +151,10 @@ public class GameTheme {
         button_color = new Color(143, 122, 102);
         button_pressed = new Color(183, 162, 142);
         game_over_color   = new Color(187, 173, 160,140);
-        Main.redraw();
+        Screen.redraw();
         save_theme("rainbow");
     }
+    //load last theme
     public static void load_theme(){
         String theme = "";
         try {
@@ -179,6 +171,7 @@ public class GameTheme {
             default -> classic();
         }
     }
+    //save what theme chosen now
     private static void save_theme(String name){
         try {
             FileWriter writer = new FileWriter("src/com/ripple/game_files/selected_theme.txt", false);

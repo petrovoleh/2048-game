@@ -5,14 +5,13 @@ import java.awt.*;
 
 //BUTTONS IN MENU CLASS
 public class menuButton extends JButton {
-    public menuButton(String name, int y, Font ClearSans) {
+    public menuButton(String name, int y) {
         setText(name);
-        setFont(ClearSans.deriveFont(32f));
+        setFont(FrameSettings.ClearSans.deriveFont(32f));
         addActionListener(new MenuListener());
         setFocusPainted(false);
         setBorderPainted(false);
         setContentAreaFilled(false);
-
         setSize(250, 50);
         setLocation(117, y);
         setForeground(Color.WHITE);
@@ -21,7 +20,9 @@ public class menuButton extends JButton {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
+        //enable antialiasing
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //chose button color and paint it
         if (getModel().isArmed())
             g.setColor(GameTheme.button_pressed);
         else
