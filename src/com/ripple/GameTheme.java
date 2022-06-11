@@ -131,26 +131,26 @@ public class GameTheme {
     }
 
     public static void rainbow(){
-        color0   = new Color(205,193,180);
-        color2   = new Color(238,228,218);
-        color4   = new Color(230,210,190);
-        color8   = new Color(240, 178, 124);
-        color16  = new Color(246, 150, 100);
-        color32  = new Color(247,124,95);
-        color64  = new Color(247, 95, 59);
-        color128 = new Color(237, 208, 115);
-        color256 = new Color(237, 208, 98);
-        color512 = new Color(237, 208, 80);
-        color1024 = new Color(237, 208, 50);
+        color0   = new Color(111, 150, 100);
+        color2   = new Color(236,186,207);
+        color4   = new Color(210,138,179);
+        color8   = new Color(180, 50, 124);
+        color16  = new Color(255,0,0);
+        color32  = new Color(255,116,0);
+        color64  = new Color(255, 210, 0);
+        color128 =  new Color(59, 218, 0);
+        color256 = new Color(9, 91, 0);
+        color512 = new Color(69,146,232);
+        color1024 = new Color(10, 25, 210);
         color2048 = new Color(237, 208, 20);
-        color4096 = new Color(100, 100, 220);
-        font_color = new Color(120, 110, 100);
-        font_color2 = new Color(238,228,218);
-        background_color = new Color(250,240,230);
-        field_color =new Color(187, 173, 160);
-        button_color = new Color(143, 122, 102);
-        button_pressed = new Color(183, 162, 142);
-        game_over_color   = new Color(187, 173, 160,140);
+        color4096 = new Color(106, 6, 208);
+        font_color = new Color(12, 131, 131);
+        font_color2 = new Color(12, 131, 131);
+        background_color = new Color(128,218,159);
+        field_color =new Color(149, 157, 208);
+        button_color = new Color(147, 138, 214);
+        button_pressed = new Color(237, 241, 132);
+        game_over_color   = new Color(255, 122, 15,140);
         Screen.redraw();
         save_theme("rainbow");
     }

@@ -14,13 +14,13 @@ public class GameField{
     public static int score = 0;
     public static int last_score = 0;
     public static int best = 0;
-
+    //create game field
     public static void create() {
         load_score();
         if(!GameField.load_field())
             generate_new();
     }
-
+    //restart game
     public static void generate_new(){
         game_field = new int[4][4];
         score = 0;
@@ -29,7 +29,7 @@ public class GameField{
         generate_parts();
         last_move=game_field.clone();
     }
-
+    //load score from file
     private static void load_score(){
         try {
             Scanner scanner = new Scanner(new File("src/com/ripple/game_files/score.txt"));
@@ -47,20 +47,19 @@ public class GameField{
             }
         }
     }
-
+    //save score to file
     public static void save_score(){
         try {
             FileWriter writer = new FileWriter("src/com/ripple/game_files/score.txt", false);
             writer.write(String.valueOf(best));
             writer.write(" ");
             writer.write(String.valueOf(score));
-
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
+    //merge parts when button pressed
     private static void merge_parts(){
         for (int y = 0; y<4; y++) {
             for (int first = 0; first < 3; first++) {
@@ -77,7 +76,7 @@ public class GameField{
             }
         }
     }
-
+    //check is player lost
     private static boolean is_player_lost(){
         for (int x = 0; x < 4; x++)
             for (int y = 1; y < 3; y++)
@@ -90,7 +89,7 @@ public class GameField{
                     return false;
         return true;
     }
-
+    //change field direction before merging parts
     private static void change_direction(int key_code){
         switch (key_code) {
             case 38, 87 -> game_field = rotate_field(game_field);
@@ -98,7 +97,7 @@ public class GameField{
             case 40, 83 -> game_field = flip(rotate_field(game_field));
         }
     }
-
+    //change field direction after merging parts
     private static void normalize_direction(int key_code){
         switch (key_code) {
             case 38, 87 -> game_field = rotate_field(game_field);
@@ -106,14 +105,14 @@ public class GameField{
             case 40, 83 -> game_field = rotate_field(flip(game_field));
         }
     }
-
+    //flip field
     private static int[][] flip(int[][] array) {
         int[][] temp_field= new int [4][4];
         for (int i = 0; i < 4; i++)
             System.arraycopy(array[3 - i], 0, temp_field[i], 0, 4);
         return temp_field;
     }
-
+    //change horizontal field to vertical
     private static int[][] rotate_field(int[][] array) {
         int[][] temp_field= new int [4][4];
         for (int i = 0; i < 4; i++)
@@ -121,7 +120,7 @@ public class GameField{
                 temp_field[i][j]=array[j][i];
         return temp_field;
     }
-
+    //remove empty cells
     private static void remove_empty(){
         for(int y =0; y<4; y++){
             for(int first_x =0; first_x<3; first_x++){
@@ -135,7 +134,7 @@ public class GameField{
             }
         }
     }
-    
+    //check is any field empty on the board
     private static boolean there_are_empty(){
         for (int x = 0; x < 4; x++)
             for (int y = 0; y < 4; y++)
@@ -143,7 +142,7 @@ public class GameField{
                     return true;
         return false;
     }
-
+    //save to file when player left game
     public static void save_field(){
         try {
             FileWriter writer = new FileWriter("src/com/ripple/game_files/field.txt", false);
@@ -166,7 +165,7 @@ public class GameField{
             save_field();
         }
     }
-
+    //load field from file
     public static boolean load_field(){
         try {
             Scanner scanner = new Scanner(new File("src/com/ripple/game_files/field.txt"));
@@ -188,31 +187,46 @@ public class GameField{
         }
         return true;
     }
-
+    //save last move to "last_field"
     private static int[][] copy_last_move(){
         int[][] temp_field= new int [4][4];
         for(int i = 0; i < 4; i++)
             temp_field[i]=Arrays.copyOf(game_field[i],4);
         return temp_field;
     }
-
+    //check is it possible to merge parts
+    private static boolean is_possible_merge(){
+        int is_possible_merge = 0;
+        for(int y =0; y<4; y++){
+            for(int first_x =0; first_x<3; first_x++){
+                if(game_field[first_x][y]==0){
+                    int second_x =first_x+1;
+                    while (game_field[second_x][y] ==0 && second_x < 3)
+                        second_x++;
+                    if (game_field[second_x][y] !=0)
+                        is_possible_merge++;
+                }
+            }
+        }
+        return is_possible_merge>0;
+    }
+    //do all funks when player press button
     public static boolean move_parts(int key_code){
-
         last_move=copy_last_move();
         last_score=score;
 
         change_direction(key_code);
         merge_parts();
 
-        remove_empty();
+        if(is_possible_merge()) {
+            remove_empty();
+            if (there_are_empty())
+                generate_parts();
+        }
         normalize_direction(key_code);
-
-        if (there_are_empty())
-            generate_parts();
-
         return is_player_lost() && !there_are_empty();
     }
-
+    //generate random part(2 or 4 1:10) in random place
     private static void generate_parts(){
         Random rand = new Random();
         int rand_x = rand.nextInt(4);
@@ -229,5 +243,3 @@ public class GameField{
             game_field[rand_x][rand_y] = 2;
     }
 }
-
-
