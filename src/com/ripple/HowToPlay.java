@@ -24,7 +24,7 @@ public class HowToPlay extends FrameSettings {
         info_label.setLocation(45, 140);
         add(info_label);
         //button back
-        add(new menuButton("Back to menu",520));
+        add(new MenuButton("Back to menu",520));
     }
     //update colors when theme changed
     public void update(){

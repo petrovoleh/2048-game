@@ -13,11 +13,11 @@ public class Settings extends FrameSettings {
         select_label.setLocation(128, 70);
         add(select_label);
         //add buttons
-        add(new menuButton("Classic", 140));
-        add(new menuButton("Pink", 200));
-        add(new menuButton("Gray", 260));
-        add(new menuButton("Dark Red", 320));
-        add(new menuButton("Rainbow", 380));
-        add(new menuButton("Back to menu", 520));
+        add(new MenuButton("Classic", 140));
+        add(new MenuButton("Pink", 200));
+        add(new MenuButton("Gray", 260));
+        add(new MenuButton("Dark Red", 320));
+        add(new MenuButton("Rainbow", 380));
+        add(new MenuButton("Back to menu", 520));
     }
 }

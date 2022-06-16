@@ -14,9 +14,9 @@ public class Menu extends FrameSettings {
         l2048.setFont(ClearSans.deriveFont(100f));
         add(l2048);
         //add buttons
-        add(new menuButton("Play",200));
-        add(new menuButton("How to play", 260));
-        add(new menuButton("Settings", 320));
-        add(new menuButton("Exit", 380));
+        add(new MenuButton("Play",200));
+        add(new MenuButton("How to play", 260));
+        add(new MenuButton("Settings", 320));
+        add(new MenuButton("Exit", 380));
     }
 }

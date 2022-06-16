@@ -14,6 +14,7 @@ public class GameField{
     public static int score = 0;
     public static int last_score = 0;
     public static int best = 0;
+    public static boolean is_player_already_won = false;
     //create game field
     public static void create() {
         load_score();
@@ -23,6 +24,7 @@ public class GameField{
     //restart game
     public static void generate_new(){
         game_field = new int[4][4];
+        is_player_already_won = false;
         score = 0;
         last_score = 0;
         generate_parts();
@@ -75,6 +77,13 @@ public class GameField{
                 }
             }
         }
+    }
+    public static boolean is_player_win(){
+        for (int x = 0; x < 4; x++)
+            for (int y = 0; y < 4; y++)
+                if(game_field[x][y] == 2048)
+                    return true;
+        return false;
     }
     //check is player lost
     private static boolean is_player_lost(){

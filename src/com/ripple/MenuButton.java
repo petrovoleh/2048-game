@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 //BUTTONS IN MENU CLASS
-public class menuButton extends JButton {
-    public menuButton(String name, int y) {
+public class MenuButton extends JButton {
+    public MenuButton(String name, int y) {
         setText(name);
         setFont(FrameSettings.ClearSans.deriveFont(32f));
         addActionListener(new MenuListener());

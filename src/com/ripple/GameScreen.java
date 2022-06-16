@@ -1,6 +1,5 @@
 package com.ripple;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -33,7 +32,7 @@ class gameButton extends JButton {
         super.paintComponent(g);
     }
 }
-
+//class that draw players score
 class ShowScore extends JPanel{
     Font ClearSans = FrameSettings.ClearSans;
     ShowScore(){
@@ -84,7 +83,7 @@ class ShowScore extends JPanel{
         g.drawString(best, 380 - best_width/2 - fontMetrics.stringWidth(best) / 2, 45);
     }
 }
-
+//draw game field
 class GraphicField extends JPanel {
     GraphicField() {
         setLocation(40, 100);
@@ -161,7 +160,7 @@ class GameOver extends JPanel{
         setLocation(40, 100);
         setSize(410, 410);
         setFont(FrameSettings.ClearSans.deriveFont(60f));
-        setBackground(GameTheme.game_over_color);
+        setOpaque(false);
         repaint();
     }
     protected void paintComponent(Graphics g) {
@@ -172,14 +171,33 @@ class GameOver extends JPanel{
         g.drawString("Game over!", 50, 220);
     }
 }
-
+//player win screen
+class PlayerWin extends JPanel{
+    PlayerWin() {
+        setVisible(false);
+        setLocation(40, 100);
+        setSize(410, 410);
+        setFont(FrameSettings.ClearSans.deriveFont(60f));
+        setOpaque(false);
+        repaint();
+    }
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setColor(GameTheme.font_color);
+        g.drawString("You win!", 90, 220);
+    }
+}
 public class GameScreen extends FrameSettings implements KeyListener
 {
     JPanel game_over = new GameOver();
+    JPanel player_win = new PlayerWin();
     public GameScreen()
     {
         //add game field, score and game over screen
         add(game_over);
+        add(player_win);
         add(new GraphicField());
         add(new ShowScore());
         //add buttons
@@ -197,6 +215,8 @@ public class GameScreen extends FrameSettings implements KeyListener
         if (key>=37 && key <=40 ||(key == 65 || key == 87 || key==68 || key==83)) {
             if(GameField.move_parts(key))
                 game_over.setVisible(true);
+            if(GameField.is_player_win())
+                player_win.setVisible(true);
             repaint();
         }
     }

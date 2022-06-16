@@ -22,13 +22,12 @@ public class GameTheme {
     public static Color color1024;
     public static Color color2048;
     public static Color color4096;
-    public static Color font_color ;
+    public static Color font_color;
     public static Color font_color2;
     public static Color background_color;
     public static Color field_color;
     public static Color button_color;
     public static Color button_pressed;
-    public static Color game_over_color;
 
     public static void classic(){
         color0   = new Color(205,193,180);
@@ -50,7 +49,6 @@ public class GameTheme {
         field_color =new Color(187, 173, 160);
         button_color = new Color(143, 122, 102);
         button_pressed = new Color(183, 162, 142);
-        game_over_color   = new Color(187, 173, 160,140);
         Screen.redraw();
         save_theme("classic");
     }
@@ -75,7 +73,6 @@ public class GameTheme {
         font_color2 = Color.GRAY;
         button_color = Color.DARK_GRAY;
         button_pressed = Color.BLACK;
-        game_over_color   = new Color(180, 180, 180,140);
         Screen.redraw();
         save_theme("gray");
     }
@@ -100,7 +97,6 @@ public class GameTheme {
         field_color = new Color(239, 159, 159);
         button_color = new Color(239, 159, 159);
         button_pressed = Color.PINK;
-        game_over_color   = new Color(160, 110, 110,140);
         Screen.redraw();
         save_theme("pink");
     }
@@ -125,7 +121,6 @@ public class GameTheme {
         field_color = new Color(139, 63, 70);
         button_color = new Color(117, 0, 11);
         button_pressed = new Color(177, 70, 80);
-        game_over_color = new Color(132, 43, 43, 140);
         Screen.redraw();
         save_theme("red");
     }
@@ -150,7 +145,6 @@ public class GameTheme {
         field_color =new Color(149, 157, 208);
         button_color = new Color(147, 138, 214);
         button_pressed = new Color(237, 241, 132);
-        game_over_color   = new Color(255, 122, 15,140);
         Screen.redraw();
         save_theme("rainbow");
     }
