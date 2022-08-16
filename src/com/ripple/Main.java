@@ -14,14 +14,14 @@ class ExitListener extends WindowAdapter {
     }
 }
 //MAIN SCREEN
-public class Screen extends JFrame{
+public class Main extends JFrame{
     //screens
     public static JPanel  menu = new Menu();
     public static HowToPlay how_to_play = new HowToPlay();
     public static JPanel settings = new Settings();
     public static JPanel game = new GameScreen();
     //create window
-    Screen() {
+    Main() {
         add(how_to_play);
         add(menu);
         add(settings);
@@ -34,7 +34,7 @@ public class Screen extends JFrame{
     }
     //main
     public static void main(String[] args) {
-        new Screen();
+        new Main();
         GameField.create();
         GameTheme.load_theme();
     }

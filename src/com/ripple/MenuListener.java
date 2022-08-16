@@ -7,23 +7,23 @@ import java.awt.event.ActionListener;
 public class MenuListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
-        Screen.menu.setVisible(false);
+        Main.menu.setVisible(false);
         switch (e.getActionCommand()) {
             case "Play" -> {
-                Screen.game.setVisible(true);
-                Screen.game.requestFocusInWindow();
+                Main.game.setVisible(true);
+                Main.game.requestFocusInWindow();
             }
-            case "How to play" -> Screen.how_to_play.setVisible(true);
-            case "Settings" -> Screen.settings.setVisible(true);
+            case "How to play" -> Main.how_to_play.setVisible(true);
+            case "Settings" -> Main.settings.setVisible(true);
             case "Exit" -> {
                 GameField.save_field();
                 GameField.save_score();
                 System.exit(0);
             }
             case "Back to menu" -> {
-                Screen.settings.setVisible(false);
-                Screen.how_to_play.setVisible(false);
-                Screen.menu.setVisible(true);
+                Main.settings.setVisible(false);
+                Main.how_to_play.setVisible(false);
+                Main.menu.setVisible(true);
             }
 
             //change theme

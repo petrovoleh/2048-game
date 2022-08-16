@@ -49,7 +49,7 @@ public class GameTheme {
         field_color =new Color(187, 173, 160);
         button_color = new Color(143, 122, 102);
         button_pressed = new Color(183, 162, 142);
-        Screen.redraw();
+        Main.redraw();
         save_theme("classic");
     }
 
@@ -73,7 +73,7 @@ public class GameTheme {
         font_color2 = Color.GRAY;
         button_color = Color.DARK_GRAY;
         button_pressed = Color.BLACK;
-        Screen.redraw();
+        Main.redraw();
         save_theme("gray");
     }
 
@@ -97,7 +97,7 @@ public class GameTheme {
         field_color = new Color(239, 159, 159);
         button_color = new Color(239, 159, 159);
         button_pressed = Color.PINK;
-        Screen.redraw();
+        Main.redraw();
         save_theme("pink");
     }
 
@@ -121,7 +121,7 @@ public class GameTheme {
         field_color = new Color(139, 63, 70);
         button_color = new Color(117, 0, 11);
         button_pressed = new Color(177, 70, 80);
-        Screen.redraw();
+        Main.redraw();
         save_theme("red");
     }
 
@@ -145,7 +145,7 @@ public class GameTheme {
         field_color =new Color(149, 157, 208);
         button_color = new Color(147, 138, 214);
         button_pressed = new Color(237, 241, 132);
-        Screen.redraw();
+        Main.redraw();
         save_theme("rainbow");
     }
     //load last theme

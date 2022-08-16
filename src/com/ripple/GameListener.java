@@ -12,12 +12,12 @@ public class GameListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        Screen.game.requestFocusInWindow();
-        Screen.game.repaint();
+        Main.game.requestFocusInWindow();
+        Main.game.repaint();
         switch (e.getActionCommand()) {
             case "Menu" -> {
-                Screen.menu.setVisible(true);
-                Screen.game.setVisible(false);
+                Main.menu.setVisible(true);
+                Main.game.setVisible(false);
             }
             case "New game" -> {
                 GameField.generate_new();
