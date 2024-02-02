@@ -1,0 +1,5 @@
+![Main menu](images/menu.png)
+![Game](images/game.png)
+![Themes](images/themes.png)
+![Game over](images/game over.png)
+![Pink theme](images/pink theme.png)
