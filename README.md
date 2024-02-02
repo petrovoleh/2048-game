@@ -1,4 +1,4 @@
-![Main menu](images/main menu.png)
+![MainMenu](images/main menu.png)
 ![Game](images/game.png)
 ![Themes](images/themes.png)
 ![GameOver](images/game over.png)
